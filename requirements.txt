@@ -1,0 +1,5 @@
+uproot
+numpy
+pandas
+plotly
+scipy

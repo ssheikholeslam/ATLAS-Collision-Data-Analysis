@@ -1,7 +1,6 @@
 #ifndef GRID_BUCKETING_H
 #define GRID_BUCKETING_H
 
-#include "CollisionEvent.h"
 #include "DataStructure.h"
 #include <vector>
 #include <queue>
@@ -24,7 +23,7 @@ struct Cell {
 
 class GridBucketing : public DataStructure {
 public:
-    GridBucketing(size_t size = 100);
+    GridBucketing(float minRestEnergy, float maxRestEnergy, size_t size = 100);
     void insert(const CollisionEvent& event) override;
     std::vector<CollisionEvent> range_query(float minRestEnergy, float maxRestEnergy) override;
     CollisionEvent find_max_efficiency() override;

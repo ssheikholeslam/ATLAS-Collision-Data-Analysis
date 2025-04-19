@@ -1,6 +1,7 @@
 #ifndef GRID_BUCKETING_H
 #define GRID_BUCKETING_H
 
+#include "CollisionEvent.h"
 #include "DataStructure.h"
 #include <vector>
 #include <queue>

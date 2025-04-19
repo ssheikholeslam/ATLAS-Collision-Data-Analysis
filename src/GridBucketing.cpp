@@ -28,7 +28,7 @@ std::vector<CollisionEvent> GridBucketing::range_query(float minRestEnergy, floa
     std::vector<CollisionEvent> result;
     auto minIndices = getCellIndices(minRestEnergy);
     auto maxIndices = getCellIndices(maxRestEnergy);
-    for (unsigned int i = minIndices.first; i <= maxIndices.first; ++i) {
+    for (unsigned int i = minIndices.second; i <= maxIndices.second; ++i) {
         Cell& cell = grid[minIndices.first][i];
         for (const CollisionEvent& event : cell.events) {
             if (minRestEnergy <= event.restEnergyOut && event.restEnergyOut <= maxRestEnergy)
@@ -36,4 +36,14 @@ std::vector<CollisionEvent> GridBucketing::range_query(float minRestEnergy, floa
         }
     }
     return result;
+}
+
+CollisionEvent GridBucketing::find_max_efficiency() {
+    CollisionEvent maxEff = grid[0][0].maxHeap.top();
+    for (unsigned int i = 1; i < gridSize; ++i) {
+        Cell& cell = grid[0][i];
+        if (!cell.maxHeap.empty() && cell.maxHeap.top().efficiency > maxEff.efficiency)
+            maxEff = cell.maxHeap.top();
+    }
+    return maxEff;
 }

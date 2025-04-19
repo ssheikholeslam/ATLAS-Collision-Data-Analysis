@@ -30,12 +30,13 @@ public:
 private:
     std::vector<std::vector<Cell>> grid;
     size_t gridSize;
+    float bucketRange;
     float minKinetic;
     float maxKinetic;
     float minRest;
     float maxRest;
 
-    std::pair<unsigned int, unsigned int> getCellIndices(const CollisionEvent& event);
+    std::pair<unsigned int, unsigned int> getCellIndices(float restEnergy);
 };
 
 #endif // GRID_BUCKETING_H

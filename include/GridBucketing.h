@@ -29,6 +29,7 @@ public:
     CollisionEvent find_max_efficiency() override;
 private:
     std::vector<std::vector<Cell>> grid;
+    size_t numRows;
     size_t gridSize;
     float bucketRange;
     float minKinetic;

@@ -2,7 +2,7 @@
 #include <algorithm>
 
 GridBucketing::GridBucketing(float minRestEnergy, float maxRestEnergy, size_t size) :
-    gridSize(size), minKinetic(13000), maxKinetic(13000), minRest(minRestEnergy), maxRest(maxRestEnergy),
+    numRows(1), gridSize(size), minKinetic(13000), maxKinetic(13000), minRest(minRestEnergy), maxRest(maxRestEnergy),
     grid(size, std::vector<Cell>(size, {std::vector<CollisionEvent>(),
                                         std::priority_queue<CollisionEvent, std::vector<CollisionEvent>,
                                             std::function<bool(CollisionEvent, CollisionEvent)>>(
@@ -40,10 +40,12 @@ std::vector<CollisionEvent> GridBucketing::range_query(float minRestEnergy, floa
 
 CollisionEvent GridBucketing::find_max_efficiency() {
     CollisionEvent maxEff = grid[0][0].maxHeap.top();
-    for (unsigned int i = 1; i < gridSize; ++i) {
-        Cell& cell = grid[0][i];
-        if (!cell.maxHeap.empty() && cell.maxHeap.top().efficiency > maxEff.efficiency)
-            maxEff = cell.maxHeap.top();
+    for (unsigned int i = 0; i < numRows; ++i) {
+        for (unsigned int i = 1; i < gridSize; ++i) {
+            Cell& cell = grid[0][i];
+            if (!cell.maxHeap.empty() && cell.maxHeap.top().efficiency > maxEff.efficiency)
+                maxEff = cell.maxHeap.top();
+        }
     }
     return maxEff;
 }

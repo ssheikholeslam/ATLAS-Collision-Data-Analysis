@@ -2,13 +2,17 @@
 #include <algorithm>
 
 GridBucketing::GridBucketing(float minRestEnergy, float maxRestEnergy, size_t size) :
-    numRows(1), gridSize(size), minKinetic(13000), maxKinetic(13000), minRest(minRestEnergy), maxRest(maxRestEnergy),
-    grid(size, std::vector<Cell>(size, {std::vector<CollisionEvent>(),
+    numRows(1), gridSize(size), minKinetic(13000), maxKinetic(13000), minRest(minRestEnergy), maxRest(maxRestEnergy) {
+    bucketRange = (maxRest - minRest + 1e-6) / gridSize;
+    for (size_t i = 0; i < numRows; ++i) {
+        grid.push_back(std::vector<Cell>(size, {std::vector<CollisionEvent>(),
                                         std::priority_queue<CollisionEvent, std::vector<CollisionEvent>,
                                             std::function<bool(CollisionEvent, CollisionEvent)>>(
                                                 [](const CollisionEvent& a, const CollisionEvent& b) {
                                                 return a.efficiency < b.efficiency;
-                                                })})) {bucketRange = (maxRest - minRest + 1e-6) / gridSize;}
+                                                })}));
+    }
+}
 
 std::pair<unsigned int, unsigned int> GridBucketing::getCellIndices(float restEnergy) {
     std::pair<unsigned int, unsigned int> indices = {0, 0};

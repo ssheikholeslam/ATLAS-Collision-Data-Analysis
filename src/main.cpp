@@ -256,8 +256,8 @@ int main() {
                 double stdDevInsert = 0, stdDevRange = 0, stdDevExtremum = 0;
                 for (int k = 0; k < numRuns; ++k) {
                     stdDevInsert += (insertTimes[k] - avgInsert) * (insertTimes[k] - avgInsert);
-                    stdDevRange += (rangeTimes[k] - avgInsert) * (rangeTimes[k] - avgInsert);
-                    stdDevExtremum += (extremumTimes[k] - avgInsert) * (extremumTimes[k] - avgInsert);
+                    stdDevRange += (rangeTimes[k] - avgRange) * (rangeTimes[k] - avgRange);
+                    stdDevExtremum += (extremumTimes[k] - avgExtremum) * (extremumTimes[k] - avgExtremum);
                 }
                 stdDevInsert = std::sqrt(stdDevInsert / (numRuns - 1));
                 stdDevRange = std::sqrt(stdDevRange / (numRuns - 1));

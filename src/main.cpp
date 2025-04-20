@@ -101,8 +101,8 @@ int main() {
             }
             allEventsOut.close();
             auto start = std::chrono::high_resolution_clock::now();
-            if (dsChoice == '1') {
-                static_cast<KDTree*>(ds.get())->buildBalanced(events);
+            if (dsChoice == 1) {
+                dynamic_cast<KDTree*>(ds.get())->buildBalanced(events);
             } else {
                 for (const auto& event : events) {
                     ds->insert(event);
@@ -219,7 +219,7 @@ int main() {
                     // Insertions
                     auto start = std::chrono::high_resolution_clock::now();
                     if (i == 1) {
-                        static_cast<KDTree*>(ds.get())->buildBalanced(events);
+                        dynamic_cast<KDTree*>(ds.get())->buildBalanced(events);
                     } else {
                         for (const auto& event : events) {
                             ds->insert(event);
@@ -230,7 +230,7 @@ int main() {
 
                     // Queries
                     long rangeTime = 0, extremumTime = 0;
-                    for (int j = 0; i < 10; ++j) {
+                    for (int j = 0; j < 10; ++j) {
                         // Range
                         start = std::chrono::high_resolution_clock::now();
                         ds->range_query(100 + j * 10, 150 + j * 10);
@@ -254,7 +254,7 @@ int main() {
 
                 // Calculate standard deviations
                 double stdDevInsert = 0, stdDevRange = 0, stdDevExtremum = 0;
-                for (int i = 0; i < numRuns; ++i) {
+                for (int k = 0; k < numRuns; ++k) {
                     stdDevInsert += (insertTimes[i] - avgInsert) * (insertTimes[i] - avgInsert);
                     stdDevRange += (rangeTimes[i] - avgInsert) * (rangeTimes[i] - avgInsert);
                     stdDevExtremum += (extremumTimes[i] - avgInsert) * (extremumTimes[i] - avgInsert);
@@ -280,8 +280,8 @@ int main() {
                     << std::fixed << std::setprecision(2) << avgExtremum << ","
                     << std::fixed << std::setprecision(2) << stdDevExtremum << ","
                     << memory << "\n";
-                out.close();
             }
+            out.close();
             mvwprintw(menu_win, 3, 2, "Report saved to performance_results.csv");
             mvwprintw(menu_win, 5, 2, "Press any key to continue.");
             wrefresh(menu_win);

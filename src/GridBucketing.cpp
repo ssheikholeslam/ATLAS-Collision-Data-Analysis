@@ -17,7 +17,7 @@ GridBucketing::GridBucketing(float minRestEnergy, float maxRestEnergy, size_t si
 std::pair<unsigned int, unsigned int> GridBucketing::getCellIndices(float restEnergy) {
     std::pair<unsigned int, unsigned int> indices = {0, 0};
     int y = (restEnergy - minRest) / bucketRange;
-    indices.second = std::clamp(y, 0, gridSize - 1);
+    indices.second = std::clamp(y, 0, static_cast<int>(gridSize - 1));
     return indices;
 }
 

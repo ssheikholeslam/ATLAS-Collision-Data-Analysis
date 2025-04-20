@@ -59,7 +59,7 @@ int main() {
 
 	while (true) {
         choice = getch();
-        if (choice == 1) {
+        if (choice == '1') {
             // Data structures menu
             werase(menu_win);
             box(menu_win, 0, 0);
@@ -73,9 +73,9 @@ int main() {
             int dsChoice = getch();
 
             // Load data into structure
-            if (dsChoice == 1) {
+            if (dsChoice == '1') {
                 ds = std::make_unique<KDTree>();
-            } else if (dsChoice == 2) {
+            } else if (dsChoice == '2') {
                 ds = std::make_unique<GridBucketing>(0, 210);
             } else {
                 wattron(menu_win, COLOR_PAIR(3));
@@ -101,7 +101,7 @@ int main() {
             }
             allEventsOut.close();
             auto start = std::chrono::high_resolution_clock::now();
-            if (dsChoice == 1) {
+            if (dsChoice == '1') {
                 dynamic_cast<KDTree*>(ds.get())->buildBalanced(events);
             } else {
                 for (const auto& event : events) {
@@ -116,7 +116,7 @@ int main() {
             wrefresh(menu_win);
             getch();
             printMainMenu();
-        } else if (choice == 2) {
+        } else if (choice == '2') {
             if (!ds) {
                 wattron(menu_win, COLOR_PAIR(3));
                 mvwprintw(menu_win, 10, 2, "Load data first! Press any key.");
@@ -137,7 +137,7 @@ int main() {
             wattroff(menu_win, COLOR_PAIR(2));
             wrefresh(menu_win);
             int subChoice = getch();
-            if (subChoice == 1) {
+            if (subChoice == '1') {
                 float minRest, maxRest;
                 wattron(menu_win, COLOR_PAIR(2));
                 mvwprintw(menu_win, 7, 2, "Enter min rest energy (GeV): ");
@@ -170,7 +170,7 @@ int main() {
                 out.close();
                 getch();
                 printMainMenu();
-            } else if (subChoice == 2) {
+            } else if (subChoice == '2') {
                 auto start = std::chrono::high_resolution_clock::now();
                 CollisionEvent maxEffEvent = ds->find_max_efficiency();
                 auto end = std::chrono::high_resolution_clock::now();
@@ -190,7 +190,7 @@ int main() {
                 getch();
                 printMainMenu();
             }
-        } else if (choice == 3) {
+        } else if (choice == '3') {
             if (!ds) {
                 wattron(menu_win, COLOR_PAIR(3));
                 mvwprintw(menu_win, 10, 2, "Load data first! Press any key.");
@@ -255,9 +255,9 @@ int main() {
                 // Calculate standard deviations
                 double stdDevInsert = 0, stdDevRange = 0, stdDevExtremum = 0;
                 for (int k = 0; k < numRuns; ++k) {
-                    stdDevInsert += (insertTimes[i] - avgInsert) * (insertTimes[i] - avgInsert);
-                    stdDevRange += (rangeTimes[i] - avgInsert) * (rangeTimes[i] - avgInsert);
-                    stdDevExtremum += (extremumTimes[i] - avgInsert) * (extremumTimes[i] - avgInsert);
+                    stdDevInsert += (insertTimes[k] - avgInsert) * (insertTimes[k] - avgInsert);
+                    stdDevRange += (rangeTimes[k] - avgInsert) * (rangeTimes[k] - avgInsert);
+                    stdDevExtremum += (extremumTimes[k] - avgInsert) * (extremumTimes[k] - avgInsert);
                 }
                 stdDevInsert = std::sqrt(stdDevInsert / (numRuns - 1));
                 stdDevRange = std::sqrt(stdDevRange / (numRuns - 1));
@@ -287,7 +287,7 @@ int main() {
             wrefresh(menu_win);
             getch();
             printMainMenu();
-        } else if (choice == 4) {
+        } else if (choice == '4') {
             break;
         } else {
             wattron(menu_win, COLOR_PAIR(3));

@@ -6,7 +6,7 @@ from scipy.stats import gaussian_kde
 import os
 
 # Verify that the input CSV exists
-csv_path = "data/all_events.csv"
+csv_path = "../data/all_events.csv"
 if not os.path.exists(csv_path):
     raise FileNotFoundError(f"Input CSV file not found at {csv_path}. Run the C++ CLI to generate all_events.csv.")
 
@@ -58,7 +58,7 @@ try:
         legend=dict(x=0.8, y=0.9),
         barmode='overlay'
     )
-    fig1.write_html("plots/efficiency_distribution.html")
+    fig1.write_html("../plots/efficiency_distribution.html")
 except Exception as e:
     print(f"Warning: Failed to generate efficiency distribution plot: {str(e)}")
 
@@ -81,7 +81,7 @@ fig2.update_layout(
     font=dict(size=14),
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5)
 )
-fig2.write_html("plots/particle_multiplicity.html")
+fig2.write_html("../plots/particle_multiplicity.html")
 
 # 3. Efficiency vs. Total Particle Count
 fig3 = px.scatter(
@@ -96,7 +96,7 @@ fig3 = px.scatter(
 )
 fig3.update_traces(marker=dict(size=6, opacity=0.6))
 fig3.update_layout(title_x=0.5, font=dict(size=14))
-fig3.write_html("plots/efficiency_vs_total_particles.html")
+fig3.write_html("../plots/efficiency_vs_total_particles.html")
 
 # 4. Particle Composition by Efficiency Decile
 data['efficiency_decile'] = pd.qcut(data['efficiency'], 10, labels=False, duplicates='drop')
@@ -118,7 +118,7 @@ fig4.update_layout(
     font=dict(size=14),
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5)
 )
-fig4.write_html("plots/particle_composition_by_efficiency.html")
+fig4.write_html("../plots/particle_composition_by_efficiency.html")
 
 # 5. Correlation Heatmap
 corr_matrix = data[[p + '_count' for p in particle_types] + ['efficiency', 'total_particles']].corr()
@@ -132,7 +132,7 @@ fig5 = px.imshow(
     zmax=1
 )
 fig5.update_layout(title_x=0.5, font=dict(size=14), width=700, height=700)
-fig5.write_html("plots/correlation_heatmap.html")
+fig5.write_html("../plots/correlation_heatmap.html")
 
 # 6. Conditional Probability of Particle Co-occurrence
 co_occurrence = pd.DataFrame(index=particle_types, columns=particle_types)
@@ -156,6 +156,6 @@ fig6 = px.imshow(
     zmax=1
 )
 fig6.update_layout(title_x=0.5, font=dict(size=14), width=600, height=600)
-fig6.write_html("plots/particle_co_occurrence.html")
+fig6.write_html("../plots/particle_co_occurrence.html")
 
 print("Visualizations have been generated and saved to the 'plots' directory.")

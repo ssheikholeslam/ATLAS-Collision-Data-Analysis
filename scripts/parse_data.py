@@ -17,13 +17,13 @@ estimate). Ensures physical consistency by maintaining units in GeV and validati
 
 # List your five ROOT files
 root_files = [
-    "data/DAOD_PHYSLITE.37019878._000001.pool.root.1",
-    "data/DAOD_PHYSLITE.37019878._000002.pool.root.1",
-    "data/DAOD_PHYSLITE.37019878._000003.pool.root.1",
-    "data/DAOD_PHYSLITE.37019878._000004.pool.root.1",
-    "data/DAOD_PHYSLITE.37019878._000006.pool.root.1",
-    "data/DAOD_PHYSLITE.37019878._000007.pool.root.1",
-    "data/DAOD_PHYSLITE.37019878._000008.pool.root.1", # This file here is technically unneeded for collecting 100,000 events
+    "../data/DAOD_PHYSLITE.37019878._000001.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000002.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000003.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000004.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000006.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000007.pool.root.1",
+    "../data/DAOD_PHYSLITE.37019878._000008.pool.root.1", # This file here is technically unneeded for collecting 100,000 events
 ]
 
 # Verify they exist
@@ -125,7 +125,7 @@ print(f"Max efficiency:       {max(evt[5] for evt in events):.4f}")
 print(f"Max rest-energy-out:  {max(evt[4] for evt in events):.2f} GeV")
 
 # Write binary
-with open("data/collision_data.bin", "wb") as f:
+with open("../data/collision_data.bin", "wb") as f:
     for eid, in_str, out_str, kin, rest, eff in events:
         f.write(struct.pack("i",   eid))
         f.write(struct.pack("32s", in_str.encode("utf-8")))
